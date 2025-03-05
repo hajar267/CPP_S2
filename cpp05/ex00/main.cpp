@@ -3,9 +3,9 @@
 
 int main(){
     try{
-        Bureaucrat("hajar ", 180);
+        Bureaucrat("hajar ", 0);
     }
     catch(std::exception& e){
-        std::cout<<Bureaucrat.getName()<<" : "<< e.what() <<std::endl;
+        std::cout<<"exceptions caught : "<< e.what() <<std::endl;
     }
 }
