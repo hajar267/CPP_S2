@@ -1,46 +1,45 @@
-#ifndef BUREAUCRAT_HPP
-#define BUREAUCRAT_HPP
+#include"Form.hpp"
+#include"Bureaucrat.hpp"
 
-#include <string>
-#include <iostream>
-#include <stdexcept>
 
-class Form; // Forward declaration
+const std::string Form::getName(void) const{
+    return (name);
+}
+bool Form::IsSigned(void) const{
+    return (isSigned);
+}
+int Form::getGradeToSign(void) const{
+    return (gradeToSign);
+}
+int Form::getGradeToExecute(void)const {
+    return (gradeToExecute);
+}
 
-class Bureaucrat {
-private:
-    const std::string name;
-    int grade;
+const char *Form::GradeTooLowException::what()const throw(){
+    return ("lower number");
+}
 
-public:
-    // Nested exception classes
-    class GradeTooHighException : public std::exception {
-    public:
-        const char* what() const throw() {
-            return "Grade is too high!";
-        }
-    };
+const char *Form::GradeTooHighException::what()const throw(){
+    return ("higher number");
+}
 
-    class GradeTooLowException : public std::exception {
-    public:
-        const char* what() const throw() {
-            return "Grade is too low!";
-        }
-    };
+std::ostream &operator<<(std::ostream &out,  const Form &object) {
+out << object.getName() << ", sign grade " << object.getGradeToSign() << ", execute grade "<< object.getGradeToExecute();
+return out;
+}
 
-    // Constructor
-    Bureaucrat(const std::string& name, int grade);
+Form::Form(std::string _name, int signgrade, int execgrade): name(_name),isSigned(false), gradeToSign(signgrade)  ,gradeToExecute(execgrade) {
+if (gradeToSign < 1 || gradeToExecute < 1){
+    throw GradeTooHighException();
+}
+else if (gradeToSign > 150 || gradeToExecute > 150){
+    throw GradeTooLowException();
+}   
+}
 
-    // Getters
-    std::string getName() const;
-    int getGrade() const;
-
-    // Grade manipulation methods
-    void incrementGrade();
-    void decrementGrade();
-
-    // Form signing method (declaration)
-    void signForm(Form& form);
-};
-
-#endif // BUREAUCRAT_HPP
+void Form::beSigned(Bureaucrat &bureaucrat){
+    if (bureaucrat.getGrade() <= 1){ isSigned = true;}
+    else if(bureaucrat.getGrade() >= 150) {
+        throw (GradeTooLowException());
+    }
+}

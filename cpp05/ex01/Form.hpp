@@ -3,9 +3,9 @@
 
 #include <string>
 #include <iostream>
-#include "Bureaucrat.hpp"
 
-class Bureaucrat; // Forward declaration to avoid circular dependency
+class Bureaucrat;
+
 
 class Form {
 private:
@@ -15,35 +15,23 @@ private:
     const int gradeToExecute;
 
 public:
-    // Exception Classes
-    class GradeTooHighException : public std::exception {
-    public:
-        const char* what() const throw() {
-            return "Form grade is too high!";
-        }
+    class GradeTooHighException : public std::exception{
+        public:
+        const char *what()const throw();
     };
-
-    class GradeTooLowException : public std::exception {
-    public:
-        const char* what() const throw() {
-            return "Form grade is too low!";
-        }
+    class GradeTooLowException : public std::exception{
+        public:
+        const char *what()const throw();
     };
-
-    // Constructor
-    Form(const std::string& name, int gradeToSign, int gradeToExecute);
-
-    // Getters
-    std::string getName() const;
-    bool getSigned() const;
-    int getGradeToSign() const;
-    int getGradeToExecute() const;
-
-    // Form signing method
-    void beSigned(const Bureaucrat& bureaucrat);
-
-    // Insertion operator overload (friend function)
-    friend std::ostream& operator<<(std::ostream& os, const Form& form);
+    Form(std::string _name, int signgrade, int execgrade);
+    const std::string getName(void) const;
+    bool IsSigned(void) const;
+    int getGradeToSign(void) const;
+    int getGradeToExecute(void) const;
+    void beSigned(Bureaucrat &bureaucrat);
 };
 
-#endif // FORM_HPP
+std::ostream &operator<<(std::ostream &out, const Form &object);
+
+
+#endif
