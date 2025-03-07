@@ -38,8 +38,9 @@ else if (gradeToSign > 150 || gradeToExecute > 150){
 }
 
 void Form::beSigned(Bureaucrat &bureaucrat){
-    if (bureaucrat.getGrade() <= 1){ isSigned = true;}
+    if (bureaucrat.getGrade() <= gradeToSign){ isSigned = true;}
     else if(bureaucrat.getGrade() >= 150) {
         throw (GradeTooLowException());
     }
 }
+

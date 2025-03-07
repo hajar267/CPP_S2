@@ -1,34 +1,33 @@
-#include"Form.hpp"
+#include"AForm.hpp"
 #include"Bureaucrat.hpp"
 
-
-const std::string Form::getName(void) const{
+const std::string AForm::getName(void) const{
     return (name);
 }
-bool Form::IsSigned(void) const{
+bool AForm::IsSigned(void) const{
     return (isSigned);
 }
-int Form::getGradeToSign(void) const{
+int AForm::getGradeToSign(void) const{
     return (gradeToSign);
 }
-int Form::getGradeToExecute(void)const {
+int AForm::getGradeToExecute(void)const {
     return (gradeToExecute);
 }
 
-const char *Form::GradeTooLowException::what()const throw(){
+const char *AForm::GradeTooLowException::what()const throw(){
     return ("lower number");
 }
 
-const char *Form::GradeTooHighException::what()const throw(){
+const char *AForm::GradeTooHighException::what()const throw(){
     return ("higher number");
 }
 
-std::ostream &operator<<(std::ostream &out,  const Form &object) {
+std::ostream &operator<<(std::ostream &out,  const AForm &object) {
 out << object.getName() << ", sign grade " << object.getGradeToSign() << ", execute grade "<< object.getGradeToExecute();
 return out;
 }
 
-Form::Form(std::string _name, int signgrade, int execgrade): name(_name),isSigned(false), gradeToSign(signgrade)  ,gradeToExecute(execgrade) {
+AForm::AForm(std::string _name, int signgrade, int execgrade): name(_name),isSigned(false), gradeToSign(signgrade)  ,gradeToExecute(execgrade) {
 if (gradeToSign < 1 || gradeToExecute < 1){
     throw GradeTooHighException();
 }
@@ -37,9 +36,19 @@ else if (gradeToSign > 150 || gradeToExecute > 150){
 }   
 }
 
-void Form::beSigned(Bureaucrat &bureaucrat){
-    if (bureaucrat.getGrade() <= 1){ isSigned = true;}
+void AForm::beSigned(Bureaucrat &bureaucrat){
+    if (bureaucrat.getGrade() <= gradeToSign){ isSigned = true;}
     else if(bureaucrat.getGrade() >= 150) {
         throw (GradeTooLowException());
     }
 }
+
+void AForm::execute(Bureaucrat const & executor) const{
+    if (!isSigned || executor.getGrade() >= gradeToExecute){
+        throw (GradeTooLowException());
+    }
+    executeFormAction();
+}
+
+AForm::~AForm(){};
+
