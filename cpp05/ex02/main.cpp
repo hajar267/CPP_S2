@@ -3,7 +3,7 @@
 #include "Bureaucrat.hpp"
 
 int main() {
-    Bureaucrat bob("Bob", 40);
+    Bureaucrat bob("Bob", 73);
     RobotomyRequestForm form("Alice");
 
     bob.signForm(form);

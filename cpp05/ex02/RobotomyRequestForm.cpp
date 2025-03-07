@@ -1,8 +1,9 @@
 #include "RobotomyRequestForm.hpp"
+#include<cstdlib>
 
 RobotomyRequestForm::RobotomyRequestForm(std::string _target) : AForm("", 72, 45),  target(_target) {}
 
-void RobotomyRequestForm::executeFormAction(void){
+void RobotomyRequestForm::executeFormAction(void) const{
     std::cout<<" *** drilling noises ***"<<std::endl;
     if (rand() % 2)
         std::cout << target << " has been robotomized successfully!" << std::endl;

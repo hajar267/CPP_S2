@@ -5,7 +5,7 @@ ShrubberyCreationForm::ShrubberyCreationForm(std::string _target) : AForm("",145
 void ShrubberyCreationForm::executeFormAction(){
     std::string file = target+"_shrubbery";
     std::ofstream writing(file.c_str());
-    if(!file){std::cerr << "Error opening" <<std::endl;  return 1;}
+    if(!writing){std::cerr << "Error opening" <<std::endl;  return ;}
     writing << "    #    \n   ###   \n  #####  \n ####### \n   ###   "<<std::endl;
     writing.close();
 }

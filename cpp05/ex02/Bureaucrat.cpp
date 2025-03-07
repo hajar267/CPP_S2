@@ -2,12 +2,12 @@
 
 
 Bureaucrat::Bureaucrat(const std::string _name, int _grade) : name(_name), grade(_grade) {
-        // if (grade < 1){
-        //     throw GradeTooHighException();
-        // }
-        // else if (grade > 150){
-        //     throw GradeTooLowException();
-        // }   
+        if (grade < 1){
+            throw GradeTooHighException();
+        }
+        else if (grade > 150){
+            throw GradeTooLowException();
+        }
     }
 
 std::string Bureaucrat::getName(void) const{return name;}
