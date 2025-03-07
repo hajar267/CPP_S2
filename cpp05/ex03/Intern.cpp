@@ -1,6 +1,8 @@
 // Intern.cpp
 #include "Intern.hpp"
-
+#include "RobotomyRequestForm.hpp"
+#include "PresidentialPardonForm.hpp"
+#include "ShrubberyCreationForm.hpp"
 
 Intern::Intern() {}
 
@@ -39,7 +41,7 @@ AForm* Intern::makeForm(const std::string& formName, const std::string& target) 
     // Find the matching form type
     for (int i = 0; i < 3; i++) {
         if (formName == formTypes[i]) {
-            Form* form = NULL;
+            AForm* form = NULL;
             
             // Create the appropriate form based on index
             if (i == 0)
