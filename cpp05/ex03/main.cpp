@@ -6,6 +6,7 @@ int main() {
     Intern someRandomIntern;
 AForm* rrf;
 rrf = someRandomIntern.makeForm("robotomy request", "Bender");
-std::cout << *rrf << std::endl;
-    return 0;
+if (rrf)
+    delete rrf;
+return 0;
 }

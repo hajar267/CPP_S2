@@ -13,7 +13,6 @@ Intern::Intern(const Intern& other) {
 Intern::~Intern() {}
 
 Intern& Intern::operator=(const Intern& other) {
-    // Nothing to copy since Intern has no attributes
     (void)other;
     return *this;
 }
@@ -31,32 +30,31 @@ AForm* Intern::createPresidentialForm(const std::string& target) const {
 }
 
 AForm* Intern::makeForm(const std::string& formName, const std::string& target) const {
-    // Define form types
-    static const std::string formTypes[3] = {
+    const std::string formTypes[3] = {
         "shrubbery creation",
         "robotomy request",
         "presidential pardon"
     };
     
-    // Find the matching form type
     for (int i = 0; i < 3; i++) {
         if (formName == formTypes[i]) {
             AForm* form = NULL;
-            
-            // Create the appropriate form based on index
-            if (i == 0)
-                form = createShrubberyForm(target);
-            else if (i == 1)
-                form = createRobotomyForm(target);
-            else if (i == 2)
-                form = createPresidentialForm(target);
-                
+            switch (i){
+                case 0:
+                    form = createShrubberyForm(target);
+                    break;
+                case 1:
+                    form = createRobotomyForm(target);
+                    break;
+                case 2:
+                    form = createPresidentialForm(target);
+                    break;
+            }
             std::cout << "Intern creates " << form->getName() << std::endl;
             return form;
         }
     }
     
-    // Form not found
     std::cout << "Intern cannot create form: Unknown form type \"" << formName << "\"" << std::endl;
     return NULL;
 }

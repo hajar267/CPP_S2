@@ -8,7 +8,7 @@ private:
     std::string target;
 public:
     PresidentialPardonForm(std::string target);
-    void executeFormAction(void);
+    void executeFormAction(void) const;
 };
 
 

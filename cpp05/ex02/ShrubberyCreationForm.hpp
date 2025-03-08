@@ -9,7 +9,7 @@ private:
     std::string target;
 public:
     ShrubberyCreationForm(std::string target);
-    void executeFormAction(void);
+    void executeFormAction(void) const;
 };
 
 
