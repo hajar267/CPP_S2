@@ -27,6 +27,9 @@ public:
         const char *what()const throw();
     };
     AForm(std::string _name, int signgrade, int execgrade);
+    AForm(const AForm &object);
+    AForm &operator=(const AForm &object);
+    AForm();
     const std::string getName(void) const;
     bool IsSigned(void) const;
     int getGradeToSign(void) const;
@@ -37,6 +40,5 @@ public:
 };
 
 std::ostream &operator<<(std::ostream &out, const AForm &object);
-
 
 #endif

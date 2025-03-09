@@ -13,13 +13,13 @@ Bureaucrat::Bureaucrat(const std::string _name, int _grade) : name(_name) {
 std::string Bureaucrat::getName(void) const{return name;}
 int Bureaucrat::getGrade(void) const{return grade;}
 void Bureaucrat::toIncrement(){
-    if (grade < 1){
+    if (grade - 1 < 1){
         throw GradeTooHighException();
     }
     this->grade--;
 }
 void Bureaucrat::toDecrement(){
-    if (grade > 150){
+    if (grade + 1> 150){
         throw GradeTooLowException();
     }
     this->grade++;
@@ -37,3 +37,17 @@ std::ostream &operator<<(std::ostream &out, const Bureaucrat &object) {
 out << object.getName() << ", bureaucrat grade " << object.getGrade();
 return out;
 }
+
+Bureaucrat::Bureaucrat(const Bureaucrat &object){
+    *this = object;
+}
+
+Bureaucrat &Bureaucrat::operator=(const Bureaucrat &object){
+    grade = object.grade;
+    return *this;
+}
+
+Bureaucrat::~Bureaucrat(){}
+
+Bureaucrat::Bureaucrat(){}
+

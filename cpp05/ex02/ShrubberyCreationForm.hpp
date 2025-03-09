@@ -10,6 +10,10 @@ private:
 public:
     ShrubberyCreationForm(std::string target);
     void executeFormAction(void) const;
+    ~ShrubberyCreationForm();
+    ShrubberyCreationForm(const ShrubberyCreationForm &object);
+    ShrubberyCreationForm &operator=(const ShrubberyCreationForm &object);
+    ShrubberyCreationForm();
 };
 
 

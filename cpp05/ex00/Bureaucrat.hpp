@@ -18,8 +18,11 @@ class Bureaucrat {
             public:
             const char *what()const throw();
         };
+        Bureaucrat();
         Bureaucrat(const std::string _name, int _grade);
-    
+        ~Bureaucrat();
+        Bureaucrat(const Bureaucrat &object);
+        Bureaucrat &operator=(const Bureaucrat &object);
         std::string getName(void) const;
         int getGrade(void) const;
         void toIncrement(void);

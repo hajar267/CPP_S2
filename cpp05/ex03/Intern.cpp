@@ -1,4 +1,3 @@
-// Intern.cpp
 #include "Intern.hpp"
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"

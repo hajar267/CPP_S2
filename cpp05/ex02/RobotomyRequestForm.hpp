@@ -9,7 +9,12 @@ private:
 public:
     RobotomyRequestForm(std::string target);
     void executeFormAction(void) const;
+    ~RobotomyRequestForm();
+    RobotomyRequestForm(const RobotomyRequestForm &object);
+    RobotomyRequestForm &operator=(const RobotomyRequestForm &object);
+    RobotomyRequestForm();
+    
 };
 
 
-#endif
+#endif 

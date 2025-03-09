@@ -1,9 +1,8 @@
-// Example usage
 #include "Bureaucrat.hpp"
 #include "Form.hpp"
 int main() {
     try {
-        Bureaucrat bob("Bob", 180);
+        Bureaucrat bob("Bob", 75);
         Form taxForm("Tax Form", 75, 100);
 
         bob.signForm(taxForm);

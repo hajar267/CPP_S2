@@ -58,3 +58,13 @@ void Bureaucrat::executeForm(AForm const & form){
         std::cout<<"Error bureaucrat not executed because "<< e.what()<<std::endl;
     }
 }
+
+Bureaucrat::Bureaucrat(const Bureaucrat &object){
+    *this = object;
+}
+Bureaucrat &Bureaucrat::operator=(const Bureaucrat &object){
+    grade = object.grade;
+    return *this;
+}
+Bureaucrat::~Bureaucrat(){}
+Bureaucrat::Bureaucrat() : name("default"), grade(1) {}

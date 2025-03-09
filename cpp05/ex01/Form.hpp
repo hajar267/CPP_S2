@@ -24,6 +24,10 @@ public:
         const char *what()const throw();
     };
     Form(std::string _name, int signgrade, int execgrade);
+    Form(const Form &object);
+    Form &operator=(const Form &object);
+    ~Form();
+    Form();
     const std::string getName(void) const;
     bool IsSigned(void) const;
     int getGradeToSign(void) const;

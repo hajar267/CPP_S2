@@ -10,3 +10,15 @@ void RobotomyRequestForm::executeFormAction(void) const{
     else
         std::cout << "The robotomy of " << target << " has failed!" << std::endl;
 }
+
+RobotomyRequestForm::~RobotomyRequestForm(){}
+
+RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm &object): AForm(object), target(object.target){}
+
+RobotomyRequestForm &RobotomyRequestForm::operator=(const RobotomyRequestForm &object){
+    target = object.target;
+    return *this;
+}
+
+RobotomyRequestForm::RobotomyRequestForm(): AForm("", 72, 45), target("default"){}
+

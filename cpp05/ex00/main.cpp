@@ -1,19 +1,8 @@
 #include <iostream>
 #include"Bureaucrat.hpp"
 
-// int main(){
-//     try{
-//         Bureaucrat obj("hajar ", 18);
-//         std::cout<<obj<< " :"<<std::endl;
-//     }
-//     catch(std::exception& e){
-//         std::cout<<  e.what() <<std::endl;
-//     }
-// }
-
-
 int main() {
-    // Test case 1: Valid grade
+    // /////////////////////Valid grade
     try {
         Bureaucrat obj1("Hajar", 50);
         std::cout << obj1 << std::endl;
@@ -24,9 +13,9 @@ int main() {
 
     std::cout << "---------------------" << std::endl;
 
-    // Test case 2: Grade too low
+    // /////////////////////////Grade too low
     try {
-        Bureaucrat obj2("Hajar", 180); // Grade too high (should throw exception)
+        Bureaucrat obj2("Hajar", 180);
         std::cout << obj2 << std::endl;
     }
     catch (std::exception& e) {
@@ -35,9 +24,9 @@ int main() {
 
     std::cout << "---------------------" << std::endl;
 
-    // Test case 3: Grade too high
+    // //////////////////////////Grade too high
     try {
-        Bureaucrat obj3("Hajar", 0); // Grade too low (should throw exception)
+        Bureaucrat obj3("Hajar", 0);
         std::cout << obj3 << std::endl;
     }
     catch (std::exception& e) {
@@ -46,7 +35,7 @@ int main() {
 
     std::cout << "---------------------" << std::endl;
 
-    // Test case 4: Increment/Decrement
+    // ////////////////////////////Increment/Decrement
     try {
         Bureaucrat obj4("Hajar", 2);
         std::cout << "Before increment: " << obj4 << std::endl;
@@ -54,7 +43,7 @@ int main() {
         obj4.toIncrement();
         std::cout << "After increment: " << obj4 << std::endl;
         
-        obj4.toIncrement(); // Will throw exception (grade becomes 0)
+        obj4.toIncrement();
         std::cout << "This won't be printed" << std::endl;
     }
     catch (std::exception& e) {

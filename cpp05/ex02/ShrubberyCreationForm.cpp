@@ -9,3 +9,14 @@ void ShrubberyCreationForm::executeFormAction() const{
     writing << "    #    \n   ###   \n  #####  \n ####### \n   ###   "<<std::endl;
     writing.close();
 }
+
+ShrubberyCreationForm::~ShrubberyCreationForm(){}
+
+ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &object): AForm(object), target(object.target){}
+
+ShrubberyCreationForm &ShrubberyCreationForm::operator=(const ShrubberyCreationForm &object){
+    target = object.target;
+    return *this;
+}
+
+ShrubberyCreationForm::ShrubberyCreationForm(): AForm("",145, 137), target("default"){}

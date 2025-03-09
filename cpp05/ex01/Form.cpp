@@ -39,8 +39,19 @@ else if (gradeToSign > 150 || gradeToExecute > 150){
 
 void Form::beSigned(Bureaucrat &bureaucrat){
     if (bureaucrat.getGrade() <= gradeToSign){ isSigned = true;}
-    else if(bureaucrat.getGrade() >= 150) {
+    else {
         throw (GradeTooLowException());
     }
 }
 
+Form::Form(const Form &object): name(object.name), isSigned(object.isSigned), gradeToSign(object.gradeToSign), gradeToExecute(object.gradeToExecute){
+}
+
+Form &Form::operator=(const Form &object){
+    isSigned = object.isSigned;
+    return *this;
+}
+
+Form::~Form(){}
+
+Form::Form() : name("default"), isSigned(false), gradeToSign(1), gradeToExecute(1) {}

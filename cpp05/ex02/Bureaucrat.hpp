@@ -20,7 +20,10 @@ class Bureaucrat {
             const char *what()const throw();
         };
         Bureaucrat(const std::string _name, int _grade);
-    
+        Bureaucrat(const Bureaucrat &object);
+        Bureaucrat &operator=(const Bureaucrat &object);
+        ~Bureaucrat();
+        Bureaucrat();
         std::string getName(void) const;
         int getGrade(void) const;
         void toIncrement(void);

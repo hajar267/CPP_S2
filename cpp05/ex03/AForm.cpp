@@ -52,3 +52,15 @@ void AForm::execute(Bureaucrat const & executor) const{
 
 AForm::~AForm(){};
 
+AForm::AForm(const AForm &object): name(object.name), isSigned(object.isSigned), gradeToSign(object.gradeToSign), gradeToExecute(object.gradeToExecute){
+}
+
+AForm &AForm::operator=(const AForm &object){
+    isSigned = object.isSigned;
+    return *this;
+}
+
+AForm::AForm() : name("default"), isSigned(false), gradeToSign(1), gradeToExecute(1) {}
+
+
+
