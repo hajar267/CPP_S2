@@ -29,12 +29,15 @@ void ScalarConverter::convert(std::string value){
 		d = static_cast<double>(c);
 	}
 	else if (value == "nanf" || value == "-inff" || value =="+inff"){
-		std::cout<< "char: impossible"<<"\nint: impossible"<<"\nfloat: nanf"<<"\ndouble: nan"<<std::endl;
-		//some modification
+    	f = std::strtof(value.c_str(), NULL);
+    	d = static_cast<double>(f);
+		std::cout<< "char: impossible"<<"\nint: impossible"<<"\nfloat: "<< f <<"f\ndouble: "<< d <<std::endl;
 		return ;
 	}
 	else if (value == "nan" || value == "-inf" || value == "+inf"){
-		std::cout<< "char: impossible"<<"\nint: impossible"<<"\nfloat: nanf"<<"\ndouble: nan"<<std::endl;
+		d = std::strtod(value.c_str(), NULL);
+    	f = static_cast<float>(d);
+		std::cout<< "char: impossible"<<"\nint: impossible"<<"\nfloat: "<< f <<"f\ndouble: "<< d <<std::endl;
 		//some modification
 		return ;
 	}

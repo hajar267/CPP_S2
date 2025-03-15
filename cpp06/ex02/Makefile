@@ -1,6 +1,6 @@
-NAME = Serializer
-HEADER= Serializer.hpp
-files = main.cpp Serializer.cpp
+NAME = Base
+HEADER= Base.hpp A.hpp B.hpp C.hpp
+files = main.cpp Base.cpp A.cpp B.cpp C.cpp
 obj := $(files:.cpp=.o)
 Cpp = c++
 FLAGS = -Wall -Wextra -Werror -std=c++98
