@@ -10,3 +10,5 @@
         Data* ptr = reinterpret_cast<Data*>(raw);
         return ptr;
     }
+
+    Data::Data(int val) : value(val) {}

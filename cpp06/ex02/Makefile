@@ -1,6 +1,6 @@
 NAME = Base
 HEADER= Base.hpp A.hpp B.hpp C.hpp
-files = main.cpp Base.cpp A.cpp B.cpp C.cpp
+files = main.cpp Base.cpp 
 obj := $(files:.cpp=.o)
 Cpp = c++
 FLAGS = -Wall -Wextra -Werror -std=c++98

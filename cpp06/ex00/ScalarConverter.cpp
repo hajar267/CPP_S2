@@ -1,13 +1,13 @@
 #include"ScalarConverter.hpp"
 
 bool isint(std::string& c){
-	int i=0;
-	while(c[i]){
-		if(!isdigit(c[i]))
-			return false;
-		i++;
+	std::stringstream s(c);
+	int j;
+	s>>j;
+	if (j){
+		return true;
 	}
-	return true;
+	return false;
 }
 
 bool isitchar(std::string& c){
@@ -38,7 +38,6 @@ void ScalarConverter::convert(std::string value){
 		d = std::strtod(value.c_str(), NULL);
     	f = static_cast<float>(d);
 		std::cout<< "char: impossible"<<"\nint: impossible"<<"\nfloat: "<< f <<"f\ndouble: "<< d <<std::endl;
-		//some modification
 		return ;
 	}
 	else if (value.find('.')!=std::string::npos && value.find('f')!=std::string::npos){
@@ -64,6 +63,7 @@ void ScalarConverter::convert(std::string value){
 	}
 	else{
 		std::cout<<"no convertion !"<<std::endl;
+		return ;
 	}
 	if (!std::isprint(c)){
 		std::cout<<"char: Non displayable"<<std::endl;

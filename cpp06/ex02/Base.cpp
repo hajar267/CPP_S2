@@ -52,7 +52,7 @@ void Base::identify(Base& p)
             }
             catch (std::bad_cast &bc)
             {
-                std::cout << "Unknown type" << std::endl;
+                std::cout << "Error" << std::endl;
             }
         }
     }
