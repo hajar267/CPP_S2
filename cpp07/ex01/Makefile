@@ -1,4 +1,4 @@
-NAME = template
+NAME = iter
 HEADER= whatever.hpp
 files = main.cpp 
 obj := $(files:.cpp=.o)
