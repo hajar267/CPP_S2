@@ -1,5 +1,5 @@
 NAME = iter
-HEADER= whatever.hpp
+HEADER= iter.hpp
 files = main.cpp 
 obj := $(files:.cpp=.o)
 Cpp = c++
