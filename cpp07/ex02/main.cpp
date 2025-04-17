@@ -17,7 +17,6 @@ int main(int, char**)
     }
     {
         Array<int> tmp = numbers;
-        std::cout<<"herreee"<<std::endl;
         Array<int> test(tmp);
     }
     
@@ -31,7 +30,7 @@ int main(int, char**)
     }
     try
     {
-        numbers[5] = 15;
+        numbers[-2] = 15;
         std::cout<<numbers[5]<<std::endl;
     }
     catch(const std::exception& e)

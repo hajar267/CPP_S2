@@ -1,13 +1,9 @@
 template <typename T>
 Array<T>::Array(): array(NULL),_n(0){
-
-    std::cout<<"constractor "<<std::endl;
 }
-
 
 template <typename T>
 Array<T>::Array(unsigned int n): array(new T[n]), _n(n){
-    std::cout<<"param constractor "<<std::endl;
 }
 
 template <typename T>
@@ -16,7 +12,6 @@ Array<T>::Array(const Array& other): _n(other._n){
     for(size_t i=0; i < other._n ; i++){
         array[i] = other.array[i];
     }
-    std::cout<<"HERE  2"<<std::endl;
 }
 
 template <typename T>
@@ -28,6 +23,7 @@ Array<T>& Array<T>::operator=(const Array& other){
         for(size_t i=0; i < other._n ; i++){
             array[i] = other.array[i];
         }
+        _n = other._n;
     }
     return *this;
 }
