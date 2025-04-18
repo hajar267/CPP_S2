@@ -2,16 +2,6 @@
 #include <iostream>
 #include <string>
 
-template <typename T>
-void print(T x)
-{
-    std::cout << x << std::endl;
-}
-
-void print1(int x)
-{
-    std::cout << x << std::endl;
-}
 
 class Awesome
 {
