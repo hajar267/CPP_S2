@@ -1,6 +1,6 @@
 NAME = mutantstack
 HEADER= MutantStack.hpp
-files = main.cpp MutantStack.cpp
+files = main.cpp
 obj := $(files:.cpp=.o)
 Cpp = c++
 FLAGS = -Wall -Wextra -Werror -std=c++98
