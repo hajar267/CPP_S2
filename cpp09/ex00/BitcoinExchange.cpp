@@ -1,6 +1,10 @@
 #include "BitcoinExchange.hpp"
 
 int BitcoinExchange::helper(std::string& num){
+    if (num.empty()){
+        std::cerr<<"error in date"<<std::endl; //we can check it here or just skip the first one
+        return 0;
+    }
     std::stringstream ss(num);
     std::string rem;
     int nm;
@@ -14,17 +18,16 @@ int BitcoinExchange::helper(std::string& num){
 
 int BitcoinExchange::CheckDate(std::string& date){
     std::stringstream ss(date);
-    std::string year, month, day;
+    std::string year, month, day, remain;
     getline(ss,year,'-') && getline(ss,month,'-') && getline(ss,day);
     if (!helper(year) || !helper(month) || !helper(day)){
         return 0;
     }
-    int y,m,d;
-    ss>>y;
-    ss>>m;
-    ss>>d;
-    //maybe i will check later for the correct day year and month
-    // std::cout<<date<<" - ";
+    std::stringstream dt;
+    dt<<year<<month<<day;
+    int result;
+    dt>>result;
+    this->date = result;
     return 1;
 }
 
@@ -44,8 +47,7 @@ void BitcoinExchange::ParseLine(std::string line){
         std::cerr<<"error in price"<<std::endl;
         return;
     }
-    //store date and price in map
-    data[date] = price;
+    data[this->date] = price;
 }
 
 void BitcoinExchange::ParsingData(void){
@@ -66,11 +68,47 @@ void BitcoinExchange::ParsingData(void){
     datafile.close();
 }
 
+double BitcoinExchange::CheckValue(std::string& value){
+    std::stringstream ss(value);
+    double v;
+    ss>>v;
+    if (v < 0 || v > 1000){
+        std::cerr<<"error in value"<<std::endl;
+        return -1;
+    }
+    return v;
+}
+
+void BitcoinExchange::FindDate(double value){
+    std::map<int,double>::iterator it = data.upper_bound(this->date);
+    if (it != data.begin()){
+        it--;
+        std::stringstream ss;
+        std::cout<<it->first<< " | " << value * it->second<<std::endl;
+    }
+    else{
+        std::cerr<<"error"<<std::endl;
+    }
+}
+
 int BitcoinExchange::ParseFile(std::string& line){
     std::stringstream ss(line);
     std::string date, value;
     getline(ss,date,'|') && getline(ss,value);
-    std::cout<<date<<" | "<<value<<std::endl;
+    // strim all spaces from date and send it to checkdate function
+    date.erase(0, date.find_first_not_of(" \t"));
+    date.erase(date.find_last_not_of(" \t") + 1);
+    if(!CheckDate(date)){
+        return 0;
+    }
+    value.erase(0, value.find_first_not_of(" \t"));
+    value.erase(value.find_last_not_of(" \t") + 1);
+    double v=CheckValue(value);
+    if(v<0){
+        return 0;
+    }
+    FindDate(v);
+    // std::cout<<this->date<<" | "<<value<<std::endl;
     return 1;
 }
 
@@ -82,7 +120,7 @@ void BitcoinExchange::GetFile(char *file){
     }
     std::string line;
     while(getline(fl, line)){
-        // ParseFile
+        ParseFile(line);
     }
 }
 
@@ -93,3 +131,4 @@ BitcoinExchange::BitcoinExchange(){
 BitcoinExchange::~BitcoinExchange(){
 
 }
+

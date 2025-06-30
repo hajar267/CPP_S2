@@ -6,11 +6,13 @@
 #include<map>
 #include<fstream>
 #include<sstream>
+#include<algorithm>
 
 
 class BitcoinExchange{
     private:
-        std::map<std::string,double> data;
+        std::map<int,double> data;
+        int date;
 
     public:
         void ParsingData(void);
@@ -19,6 +21,9 @@ class BitcoinExchange{
         int helper(std::string& num);
         void GetFile(char *file);
         int ParseFile(std::string& line);
+        double CheckValue(std::string& value);
+        void FindDate(double value);
+        void Print();
         BitcoinExchange();
         ~BitcoinExchange();
 };
