@@ -23,7 +23,7 @@ class BitcoinExchange{
         int ParseFile(std::string& line);
         double CheckValue(std::string& value);
         void FindDate(double value);
-        void Print();
+        void Print(int date);
         BitcoinExchange();
         ~BitcoinExchange();
 };

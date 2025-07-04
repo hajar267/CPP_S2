@@ -79,12 +79,21 @@ double BitcoinExchange::CheckValue(std::string& value){
     return v;
 }
 
+void BitcoinExchange::Print(int date){
+    std::stringstream ss;
+    ss<<date;
+    std::string splt;
+    ss>>splt;
+    std::cout<<splt.substr(0, 4)<<"-"<<splt.substr(4, 2)<<"-"<<splt.substr(6,2);
+}
+
 void BitcoinExchange::FindDate(double value){
     std::map<int,double>::iterator it = data.upper_bound(this->date);
     if (it != data.begin()){
         it--;
         std::stringstream ss;
-        std::cout<<it->first<< " | " << value * it->second<<std::endl;
+        Print(it->first);
+        std::cout<< " => " << value << " = " <<value * it->second<<std::endl;
     }
     else{
         std::cerr<<"error"<<std::endl;
@@ -119,6 +128,7 @@ void BitcoinExchange::GetFile(char *file){
         return ;
     }
     std::string line;
+    getline(fl, line);
     while(getline(fl, line)){
         ParseFile(line);
     }
