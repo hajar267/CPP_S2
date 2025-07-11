@@ -66,5 +66,4 @@ void RPN::ParseLine(std::string line){
     else {
         std::cerr<<"err num of opp doesn't match num of digits"<<std::endl;
     }
-    
 }
