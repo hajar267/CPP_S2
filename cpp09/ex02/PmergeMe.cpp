@@ -18,6 +18,7 @@ void PmergeMe::Parse(char **av, int ac){
         std::string remain;
         ss>>j;
         if (ss>>remain || j < 0){
+            std::cerr << "Error: Invalid argument '" << av[i] << "'" << std::endl;
             return ; //error
         }
         vec.push_back(j);
@@ -50,6 +51,7 @@ void PmergeMe::SortVec(std::vector<int>& nums){
     }
 
     SortVec(main);
+    // call function that accept main and pend and insert pend into main
 
     //generate a sequence of jacobs stor this sequence in a vector and the push the remain indices
 
@@ -59,15 +61,40 @@ void PmergeMe::SortVec(std::vector<int>& nums){
 }
 
 
-void PmergeMe::InsertVec(void){
-
+void PmergeMe::InsertVec(std::vector<int>& main, std::vector<int>& pend){
+    // using the jacobs sequence + the remain indices
+    // using lower-bound to find the position to insert each element from pend into main
+    // insert the specific element from pend with the specfic indices from jacobs sequence 
+    // into the main in indice of returning of lower=bound
 }
 
 void PmergeMe::Jacobs(size_t size){
     std::vector<size_t> jaco;
-    int j =1;
-    while (j < size){
-        jaco.push_back(j);
-        size_t jc = (j - 1) + 2 * (j - 2);
+    if (size <= 3){
+        for (size_t i = 0; i < size; i++){
+            jaco.push_back(i);
+        }
+        return ;
+    }
+    jaco.push_back(0);
+    jaco.push_back(1);
+    size_t i = 2;
+    while (jaco.size() < size){
+        size_t value = jaco[i - 1] + 2 * jaco[i - 2];
+        jaco.push_back(value);
+        i++;
+        if (jaco[j] - jaco[j - 1] > 1){
+            for(size_t i = j - 1 ; i > j - 1; i--){
+                jaco.push_back(i);
+            }
+        }
+        if ()
     }
 }
+
+
+/*
+   generate jacobs sequence
+   int i=0;
+   while(i < size){}
+*/

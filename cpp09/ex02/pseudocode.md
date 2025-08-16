@@ -13,7 +13,5 @@ pend : 7
    we have just one number so the reccursion breaks
 
 insert 7 in the main it will 7 9 (so we use just 0 from jacobs)
-insert 5 and 3 into [7,9] (using just 1 from sequence of jacobs)
-insert 2,8,0,4,10 into [3,5,7,9] (unsing just 3 from jacobs )
-
-the problem i can't get where is the optimization using jacobs order over just a norml binary searsh why the order matters
+insert 5 and 3 into [7,9] (using just 0,1 from sequence of jacobs) insert the odd one
+insert 2,8,0,4,10 into [3,5,7,9] (unsing just 0,1, 3 from jacobs )
