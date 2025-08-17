@@ -5,6 +5,20 @@ PmergeMe::PmergeMe(){}
 PmergeMe::~PmergeMe(){}
 
 void PmergeMe::Print(void){
+    for( size_t i=0; i < main_vec.size(); i++){
+        std::cout<<main_vec[i]<<" ";
+    }
+    std::cout<<std::endl;
+}
+
+void Printt(std::vector<int>& vec){
+    for( size_t i=0; i < vec.size(); i++){
+        std::cout<<vec[i]<<" ";
+    }
+    std::cout<<std::endl;
+}
+
+void Printtt(std::vector<size_t>& vec){
     for( size_t i=0; i < vec.size(); i++){
         std::cout<<vec[i]<<" ";
     }
@@ -23,11 +37,13 @@ void PmergeMe::Parse(char **av, int ac){
         }
         vec.push_back(j);
     }
+    SortVec(vec);
     Print();
 }
 
 void PmergeMe::SortVec(std::vector<int>& nums){
-    if (nums.size() <= 1){
+    if (nums.size() == 1){
+        main_vec.push_back(nums[0]);
         return ;
     }
     std::vector<int> main;
@@ -51,6 +67,10 @@ void PmergeMe::SortVec(std::vector<int>& nums){
     }
 
     SortVec(main);
+    Printt(main);
+
+    InsertVec(pend, odd);
+    return ;
     // call function that accept main and pend and insert pend into main
 
     //generate a sequence of jacobs stor this sequence in a vector and the push the remain indices
@@ -61,40 +81,76 @@ void PmergeMe::SortVec(std::vector<int>& nums){
 }
 
 
-void PmergeMe::InsertVec(std::vector<int>& main, std::vector<int>& pend){
-    // using the jacobs sequence + the remain indices
-    // using lower-bound to find the position to insert each element from pend into main
-    // insert the specific element from pend with the specfic indices from jacobs sequence 
-    // into the main in indice of returning of lower=bound
+void PmergeMe::InsertVec(std::vector<int>& pend, int odd){
+    Jacobs(pend.size());
+    Printtt(jaco_seq);
+    size_t jaco_size = jaco_seq.size();
+    size_t i = 0;
+    while( i < jaco_size){
+        size_t value = pend[jaco_seq[i] - 1];
+        std::vector<int>::iterator it = lower_bound(main_vec.begin(), main_vec.end(), value);
+        if (it != main_vec.end()){
+            main_vec.insert(it, value);
+        }
+        else {
+            main_vec.push_back(value);
+        }
+        i++;
+    }
+    if (odd != -1){
+        std::vector<int>::iterator it = lower_bound(main_vec.begin(), main_vec.end(), odd);
+        if (it != main_vec.end()){
+            main_vec.insert(it, odd);
+        }
+        else {
+            main_vec.push_back(odd);
+        }
+    }
+    jaco_seq.clear();
 }
+
 
 void PmergeMe::Jacobs(size_t size){
     std::vector<size_t> jaco;
     if (size <= 3){
-        for (size_t i = 0; i < size; i++){
-            jaco.push_back(i);
+        for (size_t i = 1; i <= size; i++){
+            jaco_seq.push_back(i);
         }
+    // Printt(jaco_seq);
         return ;
     }
     jaco.push_back(0);
     jaco.push_back(1);
     size_t i = 2;
-    while (jaco.size() < size){
-        size_t value = jaco[i - 1] + 2 * jaco[i - 2];
+    size_t value = 0;
+    while (value < size){
+        value = jaco[i - 1] + 2 * jaco[i - 2];
+        if (value >= size)
+            break;
         jaco.push_back(value);
         i++;
-        if (jaco[j] - jaco[j - 1] > 1){
-            for(size_t i = j - 1 ; i > j - 1; i--){
-                jaco.push_back(i);
-            }
-        }
-        if ()
     }
+    jaco.erase(jaco.begin(), jaco.begin() + 2);
+    Jacobs_helper(jaco, size);
+    // Printt(jaco_seq);
 }
 
-
-/*
-   generate jacobs sequence
-   int i=0;
-   while(i < size){}
-*/
+void PmergeMe::Jacobs_helper(std::vector<size_t>& jaco, size_t size){
+    size_t i = 1;
+    jaco_seq.push_back(jaco[0]);
+    while(jaco_seq.size() < size){
+        size_t first = jaco[i - 1];
+        size_t next = 0;
+        if (i >= jaco.size()){
+            next = size + 1;
+        }
+        else {
+            next = jaco[i];
+            jaco_seq.push_back(next);
+        }
+        for(size_t j = next - 1; j > first; j--){
+            jaco_seq.push_back(j);
+        }
+        i++;
+    }
+}
