@@ -12,7 +12,7 @@ double Operations(double first, double second, std::string& op){
     }
     else{
         if (second == 0){
-            std::cerr<<"can't devide in 0"<<std::endl; //i should throw exception
+            throw std::runtime_error("Cannot divide by zero");
         }
         return first / second;
     }
@@ -21,10 +21,11 @@ double Operations(double first, double second, std::string& op){
 bool RPN::IsNumber(std::string& num){
     std::stringstream ss(num);
     int n = -1;
-    ss>>n;
-    if (n < 0 || n >= 10){
-        std::cerr<<"err in num"<<std::endl;
+    if (!(ss>>n)){
         return false;
+    }
+    if (n < 0 || n >= 10){
+        throw std::out_of_range("out of range 0-10");
     }
     return true;
 }
@@ -33,7 +34,7 @@ bool RPN::IsOperator(std::string& op){
     return (op == "+" || op == "-" || op == "*" || op == "/");
 }
 
-void RPN::ParseLine(std::string line){
+void RPN::Execution(std::string line){
     std::stringstream ss(line);
     std::string numopr;
     while(ss >> numopr){
@@ -47,7 +48,7 @@ void RPN::ParseLine(std::string line){
                 this->num.push(result);
             }
             else{
-                std::cerr<<"err num of opp doesn't match num of digits"<<std::endl;
+                throw std::runtime_error("Error: number of operators doesn't match number of digits");
             }
         }
         else if(IsNumber(numopr)){
@@ -57,13 +58,14 @@ void RPN::ParseLine(std::string line){
             this->num.push(n);
         }
         else{
-            std::cerr<<"not a number or opr"<<std::endl;
+            throw std::runtime_error("Error: expected number or operator");
         }
     }
+    numopr.clear();
     if (this->num.size() == 1){
         std::cout<<this->num.top()<<std::endl;
     }
     else {
-        std::cerr<<"err num of opp doesn't match num of digits"<<std::endl;
+        throw std::runtime_error("Error: number of operators doesn't match number of digits");
     }
 }
