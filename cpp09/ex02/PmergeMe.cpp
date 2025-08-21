@@ -156,8 +156,6 @@ void PmergeMe::Jacobs_helper(std::vector<size_t>& jaco, size_t size){
     }
 }
 
-
-
 void PmergeMe::PrintDeq(void){
     for( size_t i=0; i < main_deq.size(); i++){
         std::cout<<main_deq[i]<<" ";

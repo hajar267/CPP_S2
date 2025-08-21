@@ -1,11 +1,15 @@
 #include"BitcoinExchange.hpp"
 
-int main(int ac,char** av){
-    if (ac != 2){
-        std::cerr<<"err in args"<<std::endl;
-        return 1;
+int main (int ac, char **av){
+    try {
+        if (ac != 2){
+            throw std::runtime_error("Error: could not open file");
+        }
+        BitcoinExchange test;
+        test.ParsingData();
+        test.GetFile(av[1]);
     }
-    BitcoinExchange test;
-    test.ParsingData();
-    test.GetFile(av[1]);
+    catch(std::exception& e) {
+        std::cerr<<e.what()<<std::endl;
+    }
 }
