@@ -6,6 +6,7 @@
 #include <vector>
 #include <deque>
 #include <sstream>
+#include <exception>
 
 class PmergeMe{
     private:

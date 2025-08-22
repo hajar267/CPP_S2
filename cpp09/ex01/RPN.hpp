@@ -15,6 +15,10 @@ class RPN{
         void Execution(std::string line);
         bool IsOperator(std::string& op);
         bool IsNumber(std::string& num);
+        RPN();
+        ~RPN();
+        RPN(const RPN& other);
+        RPN& operator=(const RPN& other);
 };
 
 #endif

@@ -69,3 +69,18 @@ void RPN::Execution(std::string line){
         throw std::runtime_error("Error: number of operators doesn't match number of digits");
     }
 }
+
+RPN::RPN(){}
+
+RPN::~RPN(){}
+
+RPN::RPN(const RPN& other){
+    this->num = other.num;
+}
+
+RPN& RPN::operator=(const RPN& other){
+    if (this != &other){
+        this->num = other.num;
+    }
+    return *this;
+}

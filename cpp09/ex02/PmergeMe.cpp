@@ -30,10 +30,11 @@ void PmergeMe::ParseVec(char **av, int ac){
         std::stringstream ss(av[i]);
         int j;
         std::string remain;
-        ss>>j;
+        if (!(ss>>j)){
+            throw std::runtime_error("Expected just positif integers .");
+        }
         if (ss>>remain || j < 0){
-            std::cerr << "Error: Invalid argument '" << av[i] << "'" << std::endl;
-            return ; //error
+            throw std::runtime_error("Expected just positif integers .");
         }
         vec.push_back(j);
     }
@@ -67,7 +68,7 @@ void PmergeMe::SortVec(std::vector<int>& nums){
     }
 
     SortVec(main);
-    Printt(main);
+    // Printt(main);
 
     InsertVec(pend, odd);
     return ;
@@ -83,14 +84,15 @@ void PmergeMe::SortVec(std::vector<int>& nums){
 
 void PmergeMe::InsertVec(std::vector<int>& pend, int odd){
     Jacobs(pend.size());
-    Printtt(jaco_seq);
     size_t jaco_size = jaco_seq.size();
     size_t i = 0;
     while( i < jaco_size){
-        size_t value = pend[jaco_seq[i] - 1];
+        int value = pend[jaco_seq[i] - 1];
         std::vector<int>::iterator it = lower_bound(main_vec.begin(), main_vec.end(), value);
         if (it != main_vec.end()){
-            //here i will handle the duplication
+            if (*it == value){
+                throw std::runtime_error(" duplication ");
+            }
             main_vec.insert(it, value);
         }
         else {
@@ -117,7 +119,6 @@ void PmergeMe::Jacobs(size_t size){
         for (size_t i = 1; i <= size; i++){
             jaco_seq.push_back(i);
         }
-    // Printt(jaco_seq);
         return ;
     }
     jaco.push_back(0);
@@ -133,7 +134,6 @@ void PmergeMe::Jacobs(size_t size){
     }
     jaco.erase(jaco.begin(), jaco.begin() + 2);
     Jacobs_helper(jaco, size);
-    // Printt(jaco_seq);
 }
 
 void PmergeMe::Jacobs_helper(std::vector<size_t>& jaco, size_t size){
@@ -168,10 +168,11 @@ void PmergeMe::ParseDeq(char **av, int ac){
         std::stringstream ss(av[i]);
         int j;
         std::string remain;
-        ss>>j;
+        if (!(ss>>j)){
+            throw std::runtime_error("Expected just positif integers .");
+        }
         if (ss>>remain || j < 0){
-            std::cerr << "Error: Invalid argument '" << av[i] << "'" << std::endl;
-            return ; //error
+            throw std::runtime_error("Expected just positif integers .");
         }
         deq.push_back(j);
     }
@@ -228,10 +229,12 @@ void PmergeMe::InsertDec(std::deque<int>& pend, int odd){
     size_t jaco_size = jaco_deq.size();
     size_t i = 0;
     while( i < jaco_size){
-        size_t value = pend[jaco_deq[i] - 1];
+        int value = pend[jaco_deq[i] - 1];
         std::deque<int>::iterator it = lower_bound(main_deq.begin(), main_deq.end(), value);
         if (it != main_deq.end()){
-            //here i will handle the duplication
+            if (*it == value){
+                throw std::runtime_error(" duplication ");
+            }
             main_deq.insert(it, value);
         }
         else {
