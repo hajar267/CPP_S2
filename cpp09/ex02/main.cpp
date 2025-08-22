@@ -8,6 +8,7 @@ int main(int ac, char **av){
         PmergeMe test;
         test.ParseVec(av, ac);
         test.ParseDeq(av, ac);
+        test.Print();
     }
     catch(std::exception& e){
         std::cerr<<e.what()<<std::endl;

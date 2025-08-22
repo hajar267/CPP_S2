@@ -2,30 +2,33 @@
 
 PmergeMe::PmergeMe(){}
 
+PmergeMe::PmergeMe(const PmergeMe& other){
+    this->deq = other.deq;
+    this->vec = other.vec;
+    this->jaco_seq = other.jaco_seq;
+    this->jaco_deq = other.jaco_deq;
+    this->main_deq = other.main_deq;
+    this->main_vec = other.main_vec;
+}
+
+PmergeMe& PmergeMe::operator=(const PmergeMe& other){
+    if (this != &other){
+        this->deq = other.deq;
+        this->vec = other.vec;
+        this->jaco_seq = other.jaco_seq;
+        this->jaco_deq = other.jaco_deq;
+        this->main_deq = other.main_deq;
+        this->main_vec = other.main_vec;
+    }
+    return *this;
+}
+
 PmergeMe::~PmergeMe(){}
 
-void PmergeMe::Print(void){
-    for( size_t i=0; i < main_vec.size(); i++){
-        std::cout<<main_vec[i]<<" ";
-    }
-    std::cout<<std::endl;
-}
-
-void Printt(std::vector<int>& vec){
-    for( size_t i=0; i < vec.size(); i++){
-        std::cout<<vec[i]<<" ";
-    }
-    std::cout<<std::endl;
-}
-
-void Printtt(std::vector<size_t>& vec){
-    for( size_t i=0; i < vec.size(); i++){
-        std::cout<<vec[i]<<" ";
-    }
-    std::cout<<std::endl;
-}
-
 void PmergeMe::ParseVec(char **av, int ac){
+    timeval tv;
+    gettimeofday(&tv, NULL);
+    long long first = (long long)tv.tv_sec * 1000000 + tv.tv_usec;
     for (int i=1; i < ac; i++){
         std::stringstream ss(av[i]);
         int j;
@@ -39,7 +42,9 @@ void PmergeMe::ParseVec(char **av, int ac){
         vec.push_back(j);
     }
     SortVec(vec);
-    Print();
+    gettimeofday(&tv, NULL);
+    long long final = (long long)tv.tv_sec * 1000000 + tv.tv_usec;
+    vec_time = final - first;
 }
 
 void PmergeMe::SortVec(std::vector<int>& nums){
@@ -66,19 +71,9 @@ void PmergeMe::SortVec(std::vector<int>& nums){
     if (nums.size()%2 != 0){
         odd = nums[nums.size()-1];
     }
-
     SortVec(main);
-    // Printt(main);
-
     InsertVec(pend, odd);
     return ;
-    // call function that accept main and pend and insert pend into main
-
-    //generate a sequence of jacobs stor this sequence in a vector and the push the remain indices
-
-    //insert each element from the pend into the main
-
-    // also insert the odd one if exist
 }
 
 
@@ -156,14 +151,11 @@ void PmergeMe::Jacobs_helper(std::vector<size_t>& jaco, size_t size){
     }
 }
 
-void PmergeMe::PrintDeq(void){
-    for( size_t i=0; i < main_deq.size(); i++){
-        std::cout<<main_deq[i]<<" ";
-    }
-    std::cout<<std::endl;
-}
-
 void PmergeMe::ParseDeq(char **av, int ac){
+    timeval tv;
+    gettimeofday(&tv, NULL);
+    long long first = (long long)tv.tv_sec * 1000000 + tv.tv_usec;
+
     for (int i = 1; i < ac; i++){
         std::stringstream ss(av[i]);
         int j;
@@ -177,7 +169,9 @@ void PmergeMe::ParseDeq(char **av, int ac){
         deq.push_back(j);
     }
     SortDeq(deq);
-    PrintDeq();
+    gettimeofday(&tv, NULL);
+    long long final = (long long)tv.tv_sec * 1000000 + tv.tv_usec;
+    deq_time = final - first;
 }
 
 void PmergeMe::JacobsDeq(size_t size){
@@ -284,4 +278,19 @@ void PmergeMe::SortDeq(std::deque<int>& nums){
 
     InsertDec(pend, odd);
     return ;
+}
+
+void PmergeMe::Print(void){
+    std::cout<<"Befor : ";
+    for( size_t i=0; i < vec.size(); i++){
+        std::cout<<vec[i]<<" ";
+    }
+    std::cout<<std::endl;
+    std::cout<<"After : ";
+    for( size_t i=0; i < main_vec.size(); i++){
+        std::cout<<main_vec[i]<<" ";
+    }
+    std::cout<<std::endl;
+    std::cout<<"Time to process a range of "<<vec.size()<<" elements with std::vector<> : "<< vec_time << "us" <<std::endl;
+    std::cout<<"Time to process a range of "<<deq.size()<<" elements with std::deque<> : "<< deq_time << "us" <<std::endl;
 }
