@@ -1,6 +1,18 @@
 #include "BitcoinExchange.hpp"
 
-void BitcoinExchange::helper(std::string& num){
+void BitcoinExchange::datelogic(int num, int flag){
+    if (flag == 1 && (num > 2025 || num < 2009)){
+        throw std::runtime_error("Error: bad input => ");
+    }
+    if (flag == 2 && (num < 1 || num > 12)){
+        throw std::runtime_error("Error: bad input => ");
+    }
+    if(flag == 3 && (num < 1 || num > 31)){
+        throw std::runtime_error("Error: bad input => ");
+    }
+}
+
+void BitcoinExchange::helper(std::string& num, int flag){
     if (num.empty()){
         throw std::runtime_error("Error: bad input => ");
     }
@@ -11,13 +23,16 @@ void BitcoinExchange::helper(std::string& num){
     if(ss>>rem){
         throw std::runtime_error("Error: bad input => ");
     }
+    if (isdate == 1){
+        datelogic(nm, flag);
+    }
 }
 
 void BitcoinExchange::CheckDate(std::string& date){
     std::stringstream ss(date);
     std::string year, month, day, remain;
     getline(ss,year,'-') && getline(ss,month,'-') && getline(ss,day);
-    helper(year); helper(month); helper(day);
+    helper(year, 1); helper(month, 2); helper(day, 3);
     std::stringstream dt;
     dt<<year<<month<<day;
     int result;
@@ -30,6 +45,7 @@ void BitcoinExchange::ParseLine(std::string line){
     std::string prc;
     std::stringstream ss(line);
     getline(ss,date,',') && getline(ss,prc);
+    isdate = 0;
     CheckDate(date);
     std::stringstream pr(prc);
     double price;
@@ -104,6 +120,9 @@ void BitcoinExchange::FindDate(double value){
 }
 
 int BitcoinExchange::ParseFile(std::string& line){
+    if (line.empty()){
+        return 0;
+    }
     std::stringstream ss(line);
     std::string date, value;
     getline(ss,date,'|') && getline(ss,value);
@@ -114,6 +133,7 @@ int BitcoinExchange::ParseFile(std::string& line){
     if (isHeader == 1 && date == "date" && value == "value"){
         return 0;
     }
+    isdate = 1;
     CheckDate(date);
     double v = CheckValue(value);
     if(v < 0){
